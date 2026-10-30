@@ -791,20 +791,26 @@ footer{border-top:1px solid var(--line);padding:56px 0 72px;background:var(--bg-
 <!-- ============ 06 LIMITS ============ -->
 <section id="limits">
   <div class="wrap">
-    <div class="sec-head rv"><span class="sec-num">06</span><h2>The honest limits</h2></div>
-    <p class="sec-lede rv">MAKA is a lens for exploiting structure, not a magic wand. Its authors are explicit about the boundaries.</p>
+    <div class="sec-head rv"><span class="sec-num">06</span><h2>The honest limits — and the open frontier</h2></div>
+    <p class="sec-lede rv">MAKA is a lens for exploiting structure, not a magic wand. Its hardest constraint is also its most interesting research direction.</p>
 
-    <div class="grid-2">
+    <div class="grid-2" style="align-items:start">
       <div class="bound rv">
-        <h3>⚠ The information-theoretic wall</h3>
+        <h3>⚠ The information-theoretic bound</h3>
         <p>
-          For n truly independent, uniformly random keys, the joint entropy is n·log₂q bits.
-          A single ECDLP solution hands you at most log₂q bits. So at least n quantum solutions are
-          <em>mathematically necessary</em> — no aggregation trick can beat that.
+          For n <em>fully independent</em>, uniformly random keys, the joint entropy is n·log₂q bits,
+          while a single ECDLP solution yields at most log₂q bits. Under that assumption,
+          at least n quantum solutions are necessary — <strong style="color:var(--text)">within the linear
+          aggregation model as currently understood</strong>.
         </p>
         <div class="math">
-          independent keys ⇒ quantum runs ≥ <span class="am">n</span> &nbsp;·&nbsp; always
+          fully independent keys ⇒ quantum runs ≥ <span class="am">n</span> &nbsp;·&nbsp; <span class="dm">as far as we know today</span>
         </div>
+        <p style="margin-top:16px;font-size:14.5px;color:var(--text-dim)">
+          Note the qualifiers: the bound is proven for perfect independence and linear combinations.
+          How far real-world structure, side information, or richer algebra can relax it
+          is precisely the question MAKA leaves open.
+        </p>
       </div>
       <div class="panel rv">
         <h3 style="font-size:19px;margin-bottom:16px">What MAKA is actually for</h3>
@@ -817,7 +823,18 @@ footer{border-top:1px solid var(--line);padding:56px 0 72px;background:var(--bg-
       </div>
     </div>
 
-    <div class="grid-3 rv" style="margin-top:24px">
+    <div class="panel rv" style="margin-top:24px;border-color:color-mix(in oklab, var(--accent) 35%, transparent)">
+      <div style="font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:.16em;margin-bottom:18px;text-transform:uppercase">Matters for further study</div>
+      <ul class="ticklist">
+        <li><span><strong>Relaxing the independence assumption.</strong> The n-run bound is proven only for perfectly independent keys. What is the tight bound when keys carry <em>partial</em> structure — shared RNG state, related seeds, nonce correlations? No general theory exists yet.</span></li>
+        <li><span><strong>Optimal matrix design.</strong> Which mixing matrices extract the most information per quantum run when only a subset of composites can be cracked? The problem connects directly to coding theory and compressed sensing, and the optimal construction is unknown.</span></li>
+        <li><span><strong>Non-linear aggregation.</strong> The entropy argument is stated against linear combinations. Whether pairing-based or other non-linear combinations of public keys change the information accounting is an open question.</span></li>
+        <li><span><strong>Adaptive quantum–classical hybrids.</strong> Interleaving classical pre-processing with quantum queries — letting each ECDLP result steer the next aggregation — has no established complexity bounds.</span></li>
+        <li><span><strong>Beyond ECDSA.</strong> Whether the framework transfers to Schnorr, EdDSA, Diffie–Hellman, or even across curves via isogenies remains to be worked out.</span></li>
+      </ul>
+    </div>
+
+    <div class="grid-2 rv" style="margin-top:24px">
       <div class="panel">
         <div style="font-family:var(--font-mono);font-size:12px;color:var(--accent-2);letter-spacing:.12em;margin-bottom:12px">CLASSICAL OVERHEAD</div>
         <p style="color:var(--text-2);font-size:15px;margin:0">Building composites costs O(n²) curve operations — about 2.56×10<sup>14</sup> for a million keys. Heavy, but feasible with classical clusters, and dwarfed by quantum time.</p>
@@ -825,10 +842,6 @@ footer{border-top:1px solid var(--line);padding:56px 0 72px;background:var(--bg-
       <div class="panel">
         <div style="font-family:var(--font-mono);font-size:12px;color:var(--accent-2);letter-spacing:.12em;margin-bottom:12px">STORAGE</div>
         <p style="color:var(--text-2);font-size:15px;margin:0">The mixing matrix for n = 10<sup>6</sup> holds n² scalars — roughly 32 TB. Large, but within modern storage capacity.</p>
-      </div>
-      <div class="panel">
-        <div style="font-family:var(--font-mono);font-size:12px;color:var(--accent-2);letter-spacing:.12em;margin-bottom:12px">OPEN PROBLEMS</div>
-        <p style="color:var(--text-2);font-size:15px;margin:0">Optimal matrix design (links to coding theory and compressed sensing), non-linear aggregation via pairings, adaptive quantum-classical hybrids, and extensions to Schnorr, EdDSA, and Diffie–Hellman.</p>
       </div>
     </div>
   </div>
